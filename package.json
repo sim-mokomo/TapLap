@@ -1,0 +1,22 @@
+{
+  "name": "taplap",
+  "version": "1.0.0",
+  "description": "anyone will be able to musician",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/sim-mokomo/TapLap.git"
+  },
+  "author": "sim-mokomo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sim-mokomo/TapLap/issues"
+  },
+  "homepage": "https://github.com/sim-mokomo/TapLap#readme",
+  "devDependencies": {
+    "electron": "^5.0.6"
+  }
+}
