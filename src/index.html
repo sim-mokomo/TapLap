@@ -40,8 +40,7 @@
 
 <script>
     const electron = require("electron")
-    const { ipcRenderer ,remote} = electron
-    const fs = remote.require("fs")
+    const { ipcRenderer, remote } = electron
 
     const form = document.querySelector("form")
     form.addEventListener("submit", (e, value) => {
@@ -54,7 +53,7 @@
             var src = URL.createObjectURL(filePath)
 
             var audio = new Audio(src)
-            audio.play()    
+            audio.play()
         });
     })
 
@@ -72,7 +71,7 @@
         btn.appendChild(document.createElement("span").appendChild(document.createTextNode("File")))
 
         var input = document.createElement("input")
-        input.className ="file-input"
+        input.className = "file-input"
         input.type = "file"
         btn.appendChild(input)
         fileField.appendChild(btn)
