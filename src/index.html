@@ -12,13 +12,79 @@
 </head>
 
 <body>
-    <h1>Hello World!</h1>
-    We are using node
-    <script>document.write(process.versions.node)</script>,
-    Chrome
-    <script>document.write(process.versions.chrome)</script>,
-    and Electron
-    <script>document.write(process.versions.electron)</script>.
+    <div>
+        <button class="btn-floating btn-large waves-effect waves-light gray" id="increaseFieldBtn">+</button>
+        <button class="btn-floating btn-large waves-effect waves-light gray" id="decreaseFieldBtn">-</button>
+    </div>
+    <div>
+        <ul id="fileFields">
+        </ul>
+    </div>
+    <form>
+        <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+            <i class="material-icons right">send</i>
+        </button>
+    </form>
 </body>
+
+<script>
+    const electron = require("electron")
+    const { ipcRenderer ,remote} = electron
+    const fs = remote.require("fs")
+
+    const form = document.querySelector("form")
+    form.addEventListener("submit", (e, value) => {
+        e.preventDefault()
+        var fileFields = document.querySelector("#fileFields")
+        var nodes = fileFields.children
+
+        fileFields.children.forEach(element => {
+            var filePath = element.getElementsByTagName("input")[0].files[0]
+            var src = URL.createObjectURL(filePath)
+
+            var audio = new Audio(src)
+            audio.play()    
+        });
+    })
+
+    const fileFields = document.querySelector("#fileFields")
+
+    const increaseField = document.querySelector("#increaseFieldBtn")
+    increaseField.addEventListener("click", () => {
+        var fileField = document.createElement("div")
+        fileField.classList.add("file-field")
+        fileField.classList.add("input-field")
+
+        var btn = document.createElement("div")
+        btn.classList.add("btn")
+        btn.classList.add("blue")
+        btn.appendChild(document.createElement("span").appendChild(document.createTextNode("File")))
+
+        var input = document.createElement("input")
+        input.className ="file-input"
+        input.type = "file"
+        btn.appendChild(input)
+        fileField.appendChild(btn)
+
+        var filePath = document.createElement("div")
+        filePath.className = "file-path-wrapper"
+        var filePathInput = document.createElement("input")
+        filePathInput.classList.add("file-path")
+        filePathInput.classList.add("validate")
+        filePathInput.type = "text"
+        filePath.appendChild(filePathInput)
+        fileField.appendChild(filePath)
+
+        fileFields.appendChild(fileField)
+    })
+    const decreaseField = document.querySelector("#decreaseFieldBtn")
+    decreaseField.addEventListener("click", () => {
+        if (fileFields.hasChildNodes() == false) {
+            return
+        }
+        var last = fileFields.lastChild
+        fileFields.removeChild(last)
+    })
+</script>
 
 </html>
