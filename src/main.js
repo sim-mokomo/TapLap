@@ -1,4 +1,4 @@
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow,Menu } = require('electron')
 
 let win
 
@@ -13,14 +13,49 @@ function createWindow() {
     })
 
     // そしてこのアプリの index.html をロード
-    win.loadFile('index.html')
+    win.loadFile('src/index.html')
 
-    win.webContents.openDevTools()
+    const mainMenu = Menu.buildFromTemplate(mainMenuTemplete)
+    Menu.setApplicationMenu(mainMenu)
 
     win.on("closed", () => {
         win = null
     })
 }
+
+const mainMenuTemplete = [
+    {
+        label: "Tap Lap",
+        submenu:[
+            {
+                label:"Add Item1"
+            },
+            {
+                label:"Add Item2"
+            },
+            {
+                label:"Add Item3"
+            },
+            {
+                label:"Quit",
+                accelerator: process.platform == "darwin" ? "Command+Q" : "Ctrl+Q",
+                click(){
+                    app.quit()
+                }
+            },
+            {
+                label:"Toggle Dev Tools",
+                accelerator: process.platform == "darwin" ? "Command+I" : "Ctrl+I",
+                click(e){
+                    win.toggleDevTools()
+                }
+            },
+            {
+                role:"reload"
+            },
+        ]
+    }
+]
 
 app.on('ready', createWindow)
 
@@ -35,3 +70,4 @@ app.on("activate", () => {
         createWindow()
     }
 })
+
