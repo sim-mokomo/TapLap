@@ -16,6 +16,17 @@
         <button class="btn-floating btn-large waves-effect waves-light gray" id="increaseFieldBtn">+</button>
         <button class="btn-floating btn-large waves-effect waves-light gray" id="decreaseFieldBtn">-</button>
     </div>
+
+    <div>
+        <a class='dropdown-trigger btn' href='#' data-target='dropdown1'>Change Sequence Type
+            <i class="material-icons right">list</i>
+        </a>
+
+        <ul id='dropdown1' class='dropdown-content'>
+            <li><a href="#!">Sequence</a></li>
+        </ul>
+    </div>
+
     <div>
         <ul id="fileFields">
         </ul>
@@ -84,6 +95,11 @@
         }
         var last = fileFields.lastChild
         fileFields.removeChild(last)
+    })
+
+    document.addEventListener('DOMContentLoaded', function () {
+        var elems = document.querySelectorAll('.dropdown-trigger')
+        var instances = M.Dropdown.init(elems, null)
     })
 </script>
 
