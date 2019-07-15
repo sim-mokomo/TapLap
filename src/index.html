@@ -48,16 +48,7 @@
     const form = document.querySelector("form")
     form.addEventListener("submit", (e, value) => {
         e.preventDefault()
-        var fileFields = document.querySelector("#fileFields")
-        var nodes = fileFields.children
 
-        fileFields.children.forEach(element => {
-            var filePath = element.getElementsByTagName("input")[0].files[0]
-            var src = URL.createObjectURL(filePath)
-
-            var audio = new Audio(src)
-            audio.play()
-        });
     })
 
     const fileFields = document.querySelector("#fileFields")
@@ -100,8 +91,12 @@
     })
 
     const sequenceSelect = document.getElementById("sequence-select")
+    var currentSequence = 0
+    var audioSequenceIndex = 0
     sequenceSelect.addEventListener("change", (e) => {
         var value = sequenceSelect.value
+        currentSequence = value
+        audioSequenceIndex = 0
         console.log(value)
     })
 
@@ -109,6 +104,43 @@
         var elems = document.querySelectorAll('select');
         var instances = M.FormSelect.init(elems, null);
     })
+
+    window.addEventListener("keydown", (keyEvent) => {
+        console.log(keyEvent.key)
+        var fileFields = document.querySelector("#fileFields")
+        if (!fileFields.hasChildNodes()) {
+            return
+        }
+
+        if(currentSequence == 1){
+            console.log(audioSequenceIndex)
+            var sequenceFiled = fileFields.children[audioSequenceIndex]
+            var file = sequenceFiled.getElementsByTagName("input")[0].files[0]
+            if(file != null){
+                var audio = new Audio(URL.createObjectURL(file))
+                audio.play()
+                audio = null
+            }
+            audioSequenceIndex = (audioSequenceIndex + 1) % fileFields.children.length
+        }
+
+        if (currentSequence == 2) {
+            var randomIndex = getRandom(0, fileFields.children.length - 1)
+            console.log(randomIndex)
+            var randomFileField = fileFields.children[randomIndex]
+            var file = randomFileField.getElementsByTagName("input")[0].files[0]
+            if(file != null){
+                var audio = new Audio(URL.createObjectURL(file))
+                audio.play()
+                audio = null
+            }
+        }
+    })
+
+    function getRandom(min, max) {
+        var random = Math.floor(Math.random() * (max + 1 - min)) + min;
+        return random;
+    }
 </script>
 
 </html>
