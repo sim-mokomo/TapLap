@@ -38,6 +38,44 @@ increaseField.addEventListener("click", () => {
     filePathInput.classList.add("file-path")
     filePathInput.classList.add("validate")
     filePathInput.type = "text"
+
+    var arrowUpButton = document.createElement("button")
+    arrowUpButton.classList.add("btn-small")
+    var arrowUpIcon = document.createElement("i")
+    arrowUpIcon.classList.add("col")
+    arrowUpIcon.classList.add("s1")
+    arrowUpIcon.classList.add("material-icons")
+    arrowUpIcon.appendChild(document.createTextNode("arrow_drop_up"))
+    arrowUpButton.appendChild(arrowUpIcon)
+    arrowUpButton.addEventListener("click",(e) => {
+        var file = input.files[0]
+        shiftUpAudioSourceList(file)
+        audioSourceList = refreshAudioSourceList()
+    })
+    
+    var arrowDownButton = document.createElement("button")
+    arrowDownButton.classList.add("btn-small")
+    var arrowDownIcon = document.createElement("i")
+    arrowDownIcon.classList.add("col")
+    arrowDownIcon.classList.add("s1")
+    arrowDownIcon.classList.add("material-icons")
+    arrowDownIcon.appendChild(document.createTextNode("arrow_drop_down"))
+    arrowDownButton.appendChild(arrowDownIcon)
+    arrowDownButton.addEventListener("click",(e)=>{
+        var file = input.files[0]
+        shiftDownAudioSourceList(file)
+        audioSourceList = refreshAudioSourceList()
+    })
+
+    filePath.appendChild(filePathInput)
+    fileField.appendChild(filePath)
+
+    row.appendChild(fileField)
+    row.appendChild(arrowUpButton)
+    row.appendChild(arrowDownButton)
+
+    fileFields.appendChild(container)
+})
 const decreaseField = document.querySelector("#decreaseFieldBtn")
 decreaseField.addEventListener("click", () => {
     if (fileFields.hasChildNodes() == false) {
@@ -97,4 +135,47 @@ window.addEventListener("keydown", (keyEvent) => {
 function getRandom(min, max) {
     var random = Math.floor(Math.random() * (max + 1 - min)) + min;
     return random;
+}
+
+function refreshAudioSourceList() {
+    var files = []
+    var nodes = fileFields.children
+    for (let index = 0; index < nodes.length; index++) {
+        const element = nodes[index];
+        var file = element.getElementsByTagName("input")[0].files[0]
+        files.push(file)
+    }
+    return files
+}
+
+function shiftUpAudioSourceList(file) {
+    var targetAudioSourceIndex = audioSourceList.indexOf(file)
+    if(targetAudioSourceIndex == 0){
+        return
+    }
+
+    var nodes = fileFields.children
+    for (let index = 0; index < nodes.length; index++) {
+        const element = nodes[index];
+        if(index == targetAudioSourceIndex){
+            fileFields.insertBefore(element,nodes[targetAudioSourceIndex-1])
+        }
+    }
+    return audioSourceList
+}
+
+function shiftDownAudioSourceList(file) {
+    var targetAudioSourceIndex = audioSourceList.indexOf(file)
+    if(targetAudioSourceIndex == audioSourceList.length-1){
+        return
+    }
+
+    var nodes = fileFields.children
+    for (let index = 0; index < nodes.length; index++) {
+        const element = nodes[index];
+        if(index == targetAudioSourceIndex){
+            fileFields.insertBefore(element,nodes[targetAudioSourceIndex+2])
+        }
+    }
+    return audioSourceList
 }
