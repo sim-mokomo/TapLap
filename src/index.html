@@ -34,6 +34,7 @@
         <ul id="fileFields">
         </ul>
     </div>
+
 </body>
 
 <script>
@@ -44,7 +45,16 @@
 
     const increaseField = document.querySelector("#increaseFieldBtn")
     increaseField.addEventListener("click", () => {
+
+        var container = document.createElement("div")
+        container.classList.add("container")
+        var row = document.createElement("div")
+        row.className = "row"
+        container.appendChild(row)
+
         var fileField = document.createElement("div")
+        fileField.classList.add("col")
+        fileField.classList.add("s11")
         fileField.classList.add("file-field")
         fileField.classList.add("input-field")
 
@@ -65,10 +75,21 @@
         filePathInput.classList.add("file-path")
         filePathInput.classList.add("validate")
         filePathInput.type = "text"
+
+        var swapIcon = document.createElement("i")
+        swapIcon.classList.add("col")
+        swapIcon.classList.add("s1")
+        swapIcon.classList.add("material-icons")
+        swapIcon.classList.add("right")
+        swapIcon.appendChild(document.createTextNode("swap_vert"))
+
         filePath.appendChild(filePathInput)
         fileField.appendChild(filePath)
 
-        fileFields.appendChild(fileField)
+        row.appendChild(swapIcon)
+        row.appendChild(fileField)
+
+        fileFields.appendChild(container)
     })
     const decreaseField = document.querySelector("#decreaseFieldBtn")
     decreaseField.addEventListener("click", () => {
