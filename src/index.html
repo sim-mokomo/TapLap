@@ -14,21 +14,20 @@
 <body>
     <div>
         <button class="btn-floating btn-large waves-effect waves-light gray" id="increaseFieldBtn">
-                <i class="material-icons right">add</i>
+            <i class="material-icons right">add</i>
         </button>
         <button class="btn-floating btn-large waves-effect waves-light gray" id="decreaseFieldBtn">
-                <i class="material-icons right">remove</i>
+            <i class="material-icons right">remove</i>
         </button>
     </div>
 
-    <div>
-        <a class='dropdown-trigger btn' href='#' data-target='dropdown1'>Change Sequence Type
-            <i class="material-icons right">list</i>
-        </a>
-
-        <ul id='dropdown1' class='dropdown-content'>
-            <li><a href="#!">Sequence</a></li>
-        </ul>
+    <div class="input-field col s12">
+        <select id="sequence-select">
+            <option value="" disabled selected>Choose your option</option>
+            <option value="1">Sequence</option>
+            <option value="2">Random</option>
+        </select>
+        <label>Materialize Select</label>
     </div>
 
     <div>
@@ -100,9 +99,15 @@
         fileFields.removeChild(last)
     })
 
+    const sequenceSelect = document.getElementById("sequence-select")
+    sequenceSelect.addEventListener("change", (e) => {
+        var value = sequenceSelect.value
+        console.log(value)
+    })
+
     document.addEventListener('DOMContentLoaded', function () {
-        var elems = document.querySelectorAll('.dropdown-trigger')
-        var instances = M.Dropdown.init(elems, null)
+        var elems = document.querySelectorAll('select');
+        var instances = M.FormSelect.init(elems, null);
     })
 </script>
 
