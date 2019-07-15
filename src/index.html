@@ -55,7 +55,7 @@
 
         var fileField = document.createElement("div")
         fileField.classList.add("col")
-        fileField.classList.add("s11")
+        fileField.classList.add("s10")
         fileField.classList.add("file-field")
         fileField.classList.add("input-field")
 
@@ -77,18 +77,30 @@
         filePathInput.classList.add("validate")
         filePathInput.type = "text"
 
-        var swapIcon = document.createElement("i")
-        swapIcon.classList.add("col")
-        swapIcon.classList.add("s1")
-        swapIcon.classList.add("material-icons")
-        swapIcon.classList.add("right")
-        swapIcon.appendChild(document.createTextNode("swap_vert"))
+        var arrowUpButton = document.createElement("button")
+        arrowUpButton.classList.add("btn-small")
+        var arrowUpIcon = document.createElement("i")
+        arrowUpIcon.classList.add("col")
+        arrowUpIcon.classList.add("s1")
+        arrowUpIcon.classList.add("material-icons")
+        arrowUpIcon.appendChild(document.createTextNode("arrow_drop_up"))
+        arrowUpButton.appendChild(arrowUpIcon)
+        
+        var arrowDownButton = document.createElement("button")
+        arrowDownButton.classList.add("btn-small")
+        var arrowDownIcon = document.createElement("i")
+        arrowDownIcon.classList.add("col")
+        arrowDownIcon.classList.add("s1")
+        arrowDownIcon.classList.add("material-icons")
+        arrowDownIcon.appendChild(document.createTextNode("arrow_drop_down"))
+        arrowDownButton.appendChild(arrowDownIcon)
 
         filePath.appendChild(filePathInput)
         fileField.appendChild(filePath)
 
-        row.appendChild(swapIcon)
         row.appendChild(fileField)
+        row.appendChild(arrowUpButton)
+        row.appendChild(arrowDownButton)
 
         fileFields.appendChild(container)
     })
