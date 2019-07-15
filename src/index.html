@@ -34,22 +34,11 @@
         <ul id="fileFields">
         </ul>
     </div>
-    <form>
-        <button class="btn waves-effect waves-light" type="submit" name="action">Apply
-            <i class="material-icons right">sync</i>
-        </button>
-    </form>
 </body>
 
 <script>
     const electron = require("electron")
     const { ipcRenderer, remote } = electron
-
-    const form = document.querySelector("form")
-    form.addEventListener("submit", (e, value) => {
-        e.preventDefault()
-
-    })
 
     const fileFields = document.querySelector("#fileFields")
 
@@ -112,11 +101,11 @@
             return
         }
 
-        if(currentSequence == 1){
+        if (currentSequence == 1) {
             console.log(audioSequenceIndex)
             var sequenceFiled = fileFields.children[audioSequenceIndex]
             var file = sequenceFiled.getElementsByTagName("input")[0].files[0]
-            if(file != null){
+            if (file != null) {
                 var audio = new Audio(URL.createObjectURL(file))
                 audio.play()
                 audio = null
@@ -129,7 +118,7 @@
             console.log(randomIndex)
             var randomFileField = fileFields.children[randomIndex]
             var file = randomFileField.getElementsByTagName("input")[0].files[0]
-            if(file != null){
+            if (file != null) {
                 var audio = new Audio(URL.createObjectURL(file))
                 audio.play()
                 audio = null
