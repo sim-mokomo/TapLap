@@ -1,5 +1,4 @@
-const { app, BrowserWindow,Menu } = require('electron')
-
+const { app, BrowserWindow,Menu,Tray } = require('electron')
 let win
 
 function createWindow() {
@@ -57,7 +56,18 @@ const mainMenuTemplete = [
     }
 ]
 
-app.on('ready', createWindow)
+let tray = null
+app.on('ready', () => {
+    createWindow()
+    tray = new Tray("assets/img/sunTemplate.png")
+    const contextMenu = Menu.buildFromTemplate([
+        { label: 'Item1', type: 'radio' },
+        { label: 'Item2', type: 'radio' },
+        { label: 'Item3', type: 'radio', checked: true },
+        { label: 'Item4', type: 'radio' }
+    ])
+    tray.setToolTip("this is my application")
+    tray.setContextMenu(contextMenu)
 
 app.on("window-all-closed", () => {
     if (process.platform != "darwin") {
