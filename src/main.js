@@ -1,5 +1,4 @@
 const { app, BrowserWindow,Menu,Tray } = require('electron')
-const ioHook = require("iohook")
 let win
 
 function createWindow() {
@@ -69,11 +68,6 @@ app.on('ready', () => {
     ])
     tray.setToolTip("this is my application")
     tray.setContextMenu(contextMenu)
-
-    ioHook.on("keyup", event => {
-        console.log("ioHook")
-    });
-    ioHook.start();
 })
 
 app.on("window-all-closed", () => {

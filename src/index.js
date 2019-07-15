@@ -1,6 +1,7 @@
 const electron = require("electron")
 const { ipcRenderer } = electron
 const fileFields = document.querySelector("#fileFields")
+const ioHook = require("iohook")
 var audioSourceList = []
 
 const increaseField = document.querySelector("#increaseFieldBtn")
@@ -100,7 +101,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var instances = M.FormSelect.init(elems, null);
 })
 
-window.addEventListener("keydown", (keyEvent) => {
+ioHook.addListener("keydown", (keyEvent) => {
     console.log(keyEvent.key)
     var fileFields = document.querySelector("#fileFields")
     if (!fileFields.hasChildNodes()) {
@@ -131,6 +132,7 @@ window.addEventListener("keydown", (keyEvent) => {
         }
     }
 })
+ioHook.start()
 
 function getRandom(min, max) {
     var random = Math.floor(Math.random() * (max + 1 - min)) + min;
