@@ -2,6 +2,8 @@ const electron = require("electron")
 const { ipcRenderer } = electron
 const fileFields = document.querySelector("#fileFields")
 const ioHook = require("iohook")
+const fs = require("fs")
+const path = require("path")
 var audioSourceList = []
 
 const increaseField = document.querySelector("#increaseFieldBtn")
@@ -66,6 +68,16 @@ increaseField.addEventListener("click", () => {
         var file = input.files[0]
         shiftDownAudioSourceList(file)
         audioSourceList = refreshAudioSourceList()
+var basePath = ""
+var uploadFilePathNames = []
+const soundUploader = document.getElementById("sound-uploader")
+soundUploader.addEventListener("change", (event) => {
+    console.log(event.target.files)
+    basePath = event.target.files[0].path
+    fs.readdir(event.target.files[0].path, function (err, files) {
+        files.forEach(file => {
+            uploadFilePathNames.push(file)
+        })
     })
 
     filePath.appendChild(filePathInput)
