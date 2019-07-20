@@ -12,6 +12,8 @@ function createWindow() {
         maxHeight:windowHeiht,
         minWidth: windowWidth,
         minHeight: windowHeiht,
+        darkTheme: true,
+        backgroundColor: "#232323",
         webPreferences: {
             nodeIntegration: true
         }
