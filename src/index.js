@@ -17,6 +17,15 @@ soundUploader.addEventListener("change", (event) => {
     fs.readdir(event.target.files[0].path, function (err, files) {
         files.forEach(file => {
             uploadFilePathNames.push(file)
+            var collectionItem = document.createElement("li")
+            collectionItem.className = "collection-item"
+            var collectionItemICon = document.createElement("i")
+            collectionItemICon.classList.add("material-icons")
+            collectionItemICon.classList.add("left")
+            collectionItemICon.appendChild(document.createTextNode("play_circle_filled"))
+            collectionItem.appendChild(collectionItemICon)
+            collectionItem.appendChild(document.createTextNode(file))
+            fileFields.appendChild(collectionItem)
         })
     })
 })
