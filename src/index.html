@@ -13,13 +13,21 @@
 </head>
 
 <body>
-    <div class="container">
-        <button class="btn-floating btn-large waves-effect waves-light gray" id="increaseFieldBtn">
-            <i class="material-icons right">add</i>
-        </button>
-        <button class="btn-floating btn-large waves-effect waves-light gray" id="decreaseFieldBtn">
-            <i class="material-icons right">remove</i>
-        </button>
+    <div class="container sequence-select-container col s12">
+        <div class="row">
+            <div class="card">
+                <div class="card-content">
+                    <span class="card-title" style="font-size: medium;"><i class="Tiny material-icons" style="vertical-align: -6px; margin-right: 10px;">label</i>再生シーケンスタイプを選択してください</span>
+                    <div class="card-action" style="font-size: small;">
+                        <select id="sequence-select">
+                            <option class="white-text" value="" disabled selected>シーケンスタイプを選ぶ</option>
+                            <option class="white-text" value="1">順次</option>
+                            <option class="white-text" value="2">ランダム</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div class="container">
