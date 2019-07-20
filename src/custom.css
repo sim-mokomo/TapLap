@@ -6,5 +6,18 @@
   height: 24px;
   line-height: 24px;
   padding: 0 0.5rem;
+
+button {
+  -webkit-app-region: no-drag;
+}
+
+html {
+  -webkit-app-region: drag;
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
 }
 /*# sourceMappingURL=custom.css.map */

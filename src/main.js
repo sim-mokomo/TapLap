@@ -12,6 +12,8 @@ function createWindow() {
         maxHeight:windowHeiht,
         minWidth: windowWidth,
         minHeight: windowHeiht,
+        frame:false,
+        titleBarStyle: "hidden",
         darkTheme: true,
         backgroundColor: "#232323",
         webPreferences: {
