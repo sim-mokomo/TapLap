@@ -1,13 +1,17 @@
 const { app, BrowserWindow,Menu,Tray } = require('electron')
 let win
+const windowHeiht = 800
+const windowWidth = 500
 
 function createWindow() {
     // ブラウザウインドウを作成
     win = new BrowserWindow({
-        width: 800,
-        height: 600,
-        minWidth: 800,
-        minHeight: 600,
+        width: windowWidth,
+        height: windowHeiht,
+        maxWidth:windowWidth,
+        maxHeight:windowHeiht,
+        minWidth: windowWidth,
+        minHeight: windowHeiht,
         webPreferences: {
             nodeIntegration: true
         }
