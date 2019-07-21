@@ -4,6 +4,7 @@ const fileFields = document.querySelector("#fileFields")
 const ioHook = require("iohook")
 const fs = require("fs")
 const path = require("path")
+const jquery = $ = require("jquery")
 'use strict'
 const soundPlayer = require("play-sound")()
 const soundUploadIcon = document.getElementById("sound-upload-icon")
@@ -11,7 +12,6 @@ const soundUploadContainer = document.getElementById("sound-upload-container")
 
 document.ondragover = document.ondrop = (event) => {
     event.preventDefault()
-    soundUploadContainer.classList.add("")
 }
 
 document.ondragover = soundUploadContainer.onmouseover = (event) => {
@@ -136,6 +136,12 @@ function removeAllAudioCells() {
 }
 
 function createAudioCell(fileName) {
+    let cellContent = document.createElement("div")
+    cellContent.classList.add("cell-content")
+    cellContent.classList.add("col")
+    cellContent.classList.add("s10")
+    cellContent.classList.add("left")
+
     var collectionItem = document.createElement("li")
     collectionItem.className = "collection-item"
     var collectionItemICon = document.createElement("i")
@@ -173,12 +179,50 @@ function createAudioCell(fileName) {
         refreshSoundFileCells()
     })
 
-    collectionItem.appendChild(collectionItemICon)
-    collectionItem.appendChild(upArrowIcon)
-    collectionItem.appendChild(downArrowIcon)
-    collectionItem.appendChild(document.createTextNode(fileName))
+    cellContent.appendChild(collectionItemICon)
+    cellContent.appendChild(document.createTextNode(fileName))
+    cellContent.appendChild(upArrowIcon)
+    cellContent.appendChild(downArrowIcon)
 
-    return collectionItem
+    let keybind = document.createElement("div")
+    keybind.clientHeight = 51
+    keybind.style = "margin: 0px; margin-top:3px;"
+    keybind.classList.add("keybind")
+    keybind.classList.add("col")
+    keybind.classList.add("s2")
+    keybind.classList.add("right")
+
+    let keybindSelect = document.createElement("select")
+    keybindSelect.className = "keybind-select"
+    keybind.appendChild(keybindSelect)
+
+    let keybindTable = ["KeyBind", "AnyKey", "Enter", "Ctrl", "Shift", "Alt"]
+    for (let index = 0; index < keybindTable.length; index++) {
+        const keyBindElement = keybindTable[index];
+        let option = new Option(keyBindElement, index, index == 1, index == 1)
+        option.disabled = index == 0
+        keybindSelect.options[index] = option
+    }
+
+    $('.keybind-select').ready(() => {
+        let elements = $('.keybind-select')
+        for (let index = 0; index < elements.length; index++) {
+            const element = elements[index];
+            console.log(element)
+            M.FormSelect.init(element, element.options);
+        }
+    })
+
+    let audioCell = document.createElement("div")
+    audioCell.classList.add("row")
+    audioCell.classList.add("card-panel")
+    audioCell.classList.add("white")
+    audioCell.classList.add("audio-cell")
+
+    audioCell.appendChild(cellContent)
+    audioCell.appendChild(keybind)
+
+    return audioCell
 }
 
 function playSound(fileName) {

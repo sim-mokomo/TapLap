@@ -1,7 +1,7 @@
 const { app, BrowserWindow,Menu,Tray } = require('electron')
 let win
 const windowHeiht = 800
-const windowWidth = 500
+const windowWidth = 750
 
 function createWindow() {
     // ブラウザウインドウを作成

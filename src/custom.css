@@ -30,8 +30,9 @@ html, body {
   padding-top: 15px;
 }
 
-.audio-cell .input-field {
+.audio-cell .keybind {
   margin: 0%;
   margin-top: 3px;
+  height: 51px;
 }
 /*# sourceMappingURL=custom.css.map */
