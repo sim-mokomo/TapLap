@@ -25,3 +25,15 @@ html, body {
   @extend .btn-flat !optional;
   @extend .btn-small !optional; 
 }
+
+.audio-cell{
+  padding: 0px;
+  height: 55px;
+  .cell-content{
+    padding-top: 15px;
+  }
+  .input-field{
+    margin: 0%;
+    margin-top: 3px;
+  }
+}

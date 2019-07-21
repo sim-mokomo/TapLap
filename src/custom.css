@@ -20,4 +20,18 @@ html, body {
   margin: 0;
   font-family: "M PLUS 1p";
 }
+
+.audio-cell {
+  padding: 0px;
+  height: 55px;
+}
+
+.audio-cell .cell-content {
+  padding-top: 15px;
+}
+
+.audio-cell .input-field {
+  margin: 0%;
+  margin-top: 3px;
+}
 /*# sourceMappingURL=custom.css.map */

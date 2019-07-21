@@ -14,11 +14,12 @@
 </head>
 
 <body>
-    <div class="container sequence-select-container col s12">
+    <div class="container sequence-select-container">
         <div class="row">
             <div class="card">
                 <div class="card-content">
-                    <span class="card-title" style="font-size: medium;"><i class="Tiny material-icons left">label</i>再生シーケンスタイプを選択してください</span>
+                    <span class="card-title" style="font-size: medium;"><i
+                            class="Tiny material-icons left">label</i>再生シーケンスタイプを選択してください</span>
                     <div class="card-action" style="font-size: small;">
                         <select id="sequence-select">
                             <option class="white-text" value="" disabled selected>シーケンスタイプを選ぶ</option>
@@ -33,16 +34,15 @@
 
     <div class="container" id="sound-upload-container">
         <div class="row">
-            <div class="col s12">
-                <div class="card center-align">
-                    <div class="card-content">
-                        <span class="card-title">Upload Sound Folder</span>
-                        <div class="card-action">
-                            <div class="file-field input-field"">
+            <div class="col s12"></div>
+            <div class="card center-align">
+                <div class="card-content">
+                    <span class="card-title">Upload Sound Folder</span>
+                    <div class="card-action">
+                        <div class="file-field input-field"">
                                 <div>
                                     <i class=" large material-icons" id="sound-upload-icon">folder</i>
-                                <input type="file" id="sound-uploader" webkitdirectory directory>
-                            </div>
+                            <input type="file" id="sound-uploader" webkitdirectory directory>
                         </div>
                     </div>
                 </div>
@@ -50,10 +50,26 @@
         </div>
     </div>
     </div>
+    </div>
 
-    <div class="container">
-        <ul id="fileFields" class="collection">
-        </ul>
+    <div class="container" id="fileFields">
+        <div class="row card-panel white audio-cell">
+            <div class="col s10 left cell-content">
+                <i class="material-icons left waves-effect waves-teal button-flat">play_circle_filled</i>
+                test
+                <i class="material-icons right waves-effect waves-teal button-flat">arrow_drop_up</i>
+                <i class="material-icons right waves-effect waves-teal button-flat">arrow_drop_down</i>
+            </div>
+            <div class="input-field col s2 right">
+                <select>
+                    <option value="" disabled selected>Key Bind</option>
+                    <option value="1">AnyKey</option>
+                    <option value="2">Ctrl</option>
+                    <option value="3">Shift</option>
+                    <option value="3">Alt</option>
+                </select>
+            </div>
+        </div>
     </div>
 
 </body>
