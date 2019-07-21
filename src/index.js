@@ -17,36 +17,7 @@ soundUploader.addEventListener("change", (event) => {
     fs.readdir(event.target.files[0].path, function (err, files) {
         files.forEach(file => {
             uploadFilePathNames.push(file)
-            var collectionItem = document.createElement("li")
-            collectionItem.className = "collection-item"
-            var collectionItemICon = document.createElement("i")
-            collectionItemICon.classList.add("material-icons")
-            collectionItemICon.classList.add("waves-effect")
-            collectionItemICon.classList.add("waves-teal")
-            collectionItemICon.classList.add("button-flat")
-            collectionItemICon.classList.add("left")
-            collectionItemICon.appendChild(document.createTextNode("play_circle_filled"))
-
-            let upArrowIcon = document.createElement("i")
-            upArrowIcon.classList.add("material-icons")
-            upArrowIcon.classList.add("right")
-            upArrowIcon.classList.add("waves-effect")
-            upArrowIcon.classList.add("waves-teal")
-            upArrowIcon.classList.add("button-flat")
-            upArrowIcon.appendChild(document.createTextNode("arrow_drop_up"))
-
-            let downArrowIcon = document.createElement("i")
-            downArrowIcon.classList.add("material-icons")
-            downArrowIcon.classList.add("right")
-            downArrowIcon.classList.add("waves-effect")
-            downArrowIcon.classList.add("waves-teal")
-            downArrowIcon.classList.add("button-flat")
-            downArrowIcon.appendChild(document.createTextNode("arrow_drop_down"))
-
-            collectionItem.appendChild(collectionItemICon)
-            collectionItem.appendChild(upArrowIcon)
-            collectionItem.appendChild(downArrowIcon)
-            collectionItem.appendChild(document.createTextNode(file))
+            let collectionItem = createAudioCell(file)
             fileFields.appendChild(collectionItem)
         })
     })
@@ -93,45 +64,93 @@ function getRandom(min, max) {
     return random;
 }
 
-function refreshAudioSourceList() {
-    var files = []
-    var nodes = fileFields.children
-    for (let index = 0; index < nodes.length; index++) {
-        const element = nodes[index];
-        var file = element.getElementsByTagName("input")[0].files[0]
-        files.push(file)
-    }
-    return files
-}
-
-function shiftUpAudioSourceList(file) {
-    var targetAudioSourceIndex = audioSourceList.indexOf(file)
-    if(targetAudioSourceIndex == 0){
+function shiftUpAudioSourceList(list, index) {
+    if (list.length == 0) {
         return
     }
 
-    var nodes = fileFields.children
-    for (let index = 0; index < nodes.length; index++) {
-        const element = nodes[index];
-        if(index == targetAudioSourceIndex){
-            fileFields.insertBefore(element,nodes[targetAudioSourceIndex-1])
-        }
-    }
-    return audioSourceList
+    let shiftItem = list[index]
+    list.splice(index, 1)
+    list.splice(Math.max(index - 1, 0), 0, shiftItem)
+
+    return list
 }
 
-function shiftDownAudioSourceList(file) {
-    var targetAudioSourceIndex = audioSourceList.indexOf(file)
-    if(targetAudioSourceIndex == audioSourceList.length-1){
+function shiftDownAudioSourceList(list, index) {
+    if (list.length == 0) {
         return
     }
 
-    var nodes = fileFields.children
-    for (let index = 0; index < nodes.length; index++) {
-        const element = nodes[index];
-        if(index == targetAudioSourceIndex){
-            fileFields.insertBefore(element,nodes[targetAudioSourceIndex+2])
-        }
+    let shiftItem = list[index]
+    let originLength = list.length
+    list.splice(index, 1)
+    list.splice(Math.min(index + 1, originLength - 1), 0, shiftItem)
+
+    return list
+}
+
+function refreshSoundFileCells() {
+    if (uploadFilePathNames.length == 0) {
+        return
     }
-    return audioSourceList
+
+    removeAllAudioCells()
+
+    uploadFilePathNames.forEach(fileName => {
+        let collectionItem = createAudioCell(fileName)
+        fileFields.appendChild(collectionItem)
+    })
+}
+
+function removeAllAudioCells() {
+    while (fileFields.firstChild) {
+        fileFields.removeChild(fileFields.firstChild)
+    }
+}
+
+function createAudioCell(fileName) {
+    var collectionItem = document.createElement("li")
+    collectionItem.className = "collection-item"
+    var collectionItemICon = document.createElement("i")
+    collectionItemICon.classList.add("material-icons")
+    collectionItemICon.classList.add("waves-effect")
+    collectionItemICon.classList.add("waves-teal")
+    collectionItemICon.classList.add("button-flat")
+    collectionItemICon.classList.add("left")
+    collectionItemICon.appendChild(document.createTextNode("play_circle_filled"))
+    collectionItemICon.addEventListener("click", e => {
+        playSound(fileName)
+    })
+
+    let upArrowIcon = document.createElement("i")
+    upArrowIcon.classList.add("material-icons")
+    upArrowIcon.classList.add("right")
+    upArrowIcon.classList.add("waves-effect")
+    upArrowIcon.classList.add("waves-teal")
+    upArrowIcon.classList.add("button-flat")
+    upArrowIcon.appendChild(document.createTextNode("arrow_drop_up"))
+    upArrowIcon.addEventListener("click", e => {
+        shiftUpAudioSourceList(uploadFilePathNames, uploadFilePathNames.indexOf(fileName))
+        refreshSoundFileCells()
+    })
+
+    let downArrowIcon = document.createElement("i")
+    downArrowIcon.classList.add("material-icons")
+    downArrowIcon.classList.add("right")
+    downArrowIcon.classList.add("waves-effect")
+    downArrowIcon.classList.add("waves-teal")
+    downArrowIcon.classList.add("button-flat")
+    downArrowIcon.appendChild(document.createTextNode("arrow_drop_down"))
+    downArrowIcon.addEventListener("click", e => {
+        shiftDownAudioSourceList(uploadFilePathNames, uploadFilePathNames.indexOf(fileName))
+        refreshSoundFileCells()
+    })
+
+    collectionItem.appendChild(collectionItemICon)
+    collectionItem.appendChild(upArrowIcon)
+    collectionItem.appendChild(downArrowIcon)
+    collectionItem.appendChild(document.createTextNode(fileName))
+
+    return collectionItem
+}
 }
