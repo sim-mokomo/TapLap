@@ -6,7 +6,6 @@ const fs = require("fs")
 const path = require("path")
 'use strict'
 const soundPlayer = require("play-sound")()
-var audioSourceList = []
 
 const soundUploadIcon = document.getElementById("sound-upload-icon")
 const soundUploadContainer = document.getElementById("sound-upload-container")
