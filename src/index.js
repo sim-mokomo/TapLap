@@ -8,6 +8,16 @@ const path = require("path")
 const soundPlayer = require("play-sound")()
 var audioSourceList = []
 
+const soundUploadIcon = document.getElementById("sound-upload-icon")
+const soundUploadContainer = document.getElementById("sound-upload-container")
+soundUploadContainer.addEventListener("mouseover",e => {
+    soundUploadIcon.textContent = "folder_open"
+})
+
+soundUploadContainer.addEventListener("mouseleave",e => {
+    soundUploadIcon.textContent = "folder"
+})
+
 var basePath = ""
 var uploadFilePathNames = []
 const soundUploader = document.getElementById("sound-uploader")
