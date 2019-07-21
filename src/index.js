@@ -10,29 +10,46 @@ const soundPlayer = require("play-sound")()
 const soundUploadIcon = document.getElementById("sound-upload-icon")
 const soundUploadContainer = document.getElementById("sound-upload-container")
 soundUploadContainer.addEventListener("mouseover",e => {
+document.ondragover = document.ondrop = (event) => {
+    event.preventDefault()
+}
     soundUploadIcon.textContent = "folder_open"
 })
 
 soundUploadContainer.addEventListener("mouseleave",e => {
     soundUploadIcon.textContent = "folder"
 })
-
-var basePath = ""
-var uploadFilePathNames = []
-const soundUploader = document.getElementById("sound-uploader")
-soundUploader.addEventListener("change", (event) => {
+soundUploadContainer.ondrop = (event) => {
+    event.preventDefault()
     removeAllAudioCells()
     uploadFilePathNames = []
     audioSequenceIndex = 0
-    basePath = event.target.files[0].path
-    fs.readdir(event.target.files[0].path, function (err, files) {
+    basePath = event.dataTransfer.files[0].path
+    fs.readdir(basePath, function (err, files) {
         files.forEach(file => {
             uploadFilePathNames.push(file)
             let collectionItem = createAudioCell(file)
             fileFields.appendChild(collectionItem)
         })
     })
-})
+}
+
+var basePath = ""
+var uploadFilePathNames = []
+const soundUploader = document.getElementById("sound-uploader")
+soundUploader.onchange = (event) => {
+    removeAllAudioCells()
+    uploadFilePathNames = []
+    audioSequenceIndex = 0
+    basePath = event.target.files[0].path
+    fs.readdir(basePath, function (err, files) {
+        files.forEach(file => {
+            uploadFilePathNames.push(file)
+            let collectionItem = createAudioCell(file)
+            fileFields.appendChild(collectionItem)
+        })
+    })
+}
 
 const sequenceSelect = document.getElementById("sequence-select")
 var currentSequence = 0
