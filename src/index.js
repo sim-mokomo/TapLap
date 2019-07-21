@@ -39,22 +39,18 @@ document.addEventListener('DOMContentLoaded', function () {
 })
 
 ioHook.addListener("keydown", (keyEvent) => {
-    if(uploadFilePathNames.length == 0){
+    if (uploadFilePathNames.length == 0) {
         return
     }
 
     if (currentSequence == 1) {
-        var fileName = path.join(basePath, uploadFilePathNames[audioSequenceIndex])
-        soundPlayer.play(fileName)
-        console.log(fileName)
+        playSound(uploadFilePathNames[audioSequenceIndex])
         audioSequenceIndex = (audioSequenceIndex + 1) % uploadFilePathNames.length
     }
 
     if (currentSequence == 2) {
         var randomIndex = getRandom(0, uploadFilePathNames.length - 1)
-        var fileName = path.join(basePath,uploadFilePathNames[randomIndex])
-        console.log(fileName)
-        soundPlayer.play(fileName)
+        playSound(uploadFilePathNames[randomIndex])
     }
 })
 ioHook.start()
@@ -153,4 +149,7 @@ function createAudioCell(fileName) {
 
     return collectionItem
 }
+
+function playSound(fileName) {
+    soundPlayer.play(path.join(basePath, fileName))
 }
