@@ -20,3 +20,8 @@ html, body {
   margin: 0;
   font-family: "M PLUS 1p";
 }
+
+.button-flat{
+  @extend .btn-flat !optional;
+  @extend .btn-small !optional; 
+}
