@@ -12,7 +12,9 @@ var basePath = ""
 var uploadFilePathNames = []
 const soundUploader = document.getElementById("sound-uploader")
 soundUploader.addEventListener("change", (event) => {
-    console.log(event.target.files)
+    removeAllAudioCells()
+    uploadFilePathNames = []
+    audioSequenceIndex = 0
     basePath = event.target.files[0].path
     fs.readdir(event.target.files[0].path, function (err, files) {
         files.forEach(file => {
