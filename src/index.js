@@ -6,19 +6,22 @@ const fs = require("fs")
 const path = require("path")
 'use strict'
 const soundPlayer = require("play-sound")()
-
 const soundUploadIcon = document.getElementById("sound-upload-icon")
 const soundUploadContainer = document.getElementById("sound-upload-container")
-soundUploadContainer.addEventListener("mouseover",e => {
+
 document.ondragover = document.ondrop = (event) => {
     event.preventDefault()
+    soundUploadContainer.classList.add("")
 }
-    soundUploadIcon.textContent = "folder_open"
-})
 
-soundUploadContainer.addEventListener("mouseleave",e => {
+document.ondragover = soundUploadContainer.onmouseover = (event) => {
+    soundUploadIcon.textContent = "folder_open"
+}
+
+document.ondragend = soundUploadContainer.onmouseleave = (event) => {
     soundUploadIcon.textContent = "folder"
-})
+}
+
 soundUploadContainer.ondrop = (event) => {
     event.preventDefault()
     removeAllAudioCells()
